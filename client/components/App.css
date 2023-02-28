@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  background-color: #101010;
+}
+
+:root {
+  --body-text: #323232;
+  --theme-font: monospace;
+  /* CHANGE ABOVE FOR FONT THAT MATCHES THE SNOWMIES LOGO FONT! */
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 1.6rem;
+  color: var(--body-text);
+}
