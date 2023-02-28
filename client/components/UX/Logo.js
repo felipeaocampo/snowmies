@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo from '../../assets/imgs/snowmies-logo.png';
+import logo from '../../assets/imgs/snowmies-logo-compressed.png';
 
 const Logo = ({ styles }) => {
   return (
