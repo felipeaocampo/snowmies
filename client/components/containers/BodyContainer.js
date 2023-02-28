@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './BodyContainer.css';
-import snowmiesBg from '../../assets/imgs/snowmies-bg.jpg';
+import snowmiesBg from '../../assets/imgs/snowmies-bg-compressed.png';
 
 const BodyContainer = ({ children }) => {
   return (

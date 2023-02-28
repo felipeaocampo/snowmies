@@ -21,6 +21,14 @@ const SignInForm = () => {
           <input type="password" className="password-input" />
         </div>
       </form>
+      <div className="create-acc">
+        <p className="create-acc__text">
+          not registered? &rarr;{' '}
+          <a href="#" className="create-acc-link">
+            Create an account
+          </a>
+        </p>
+      </div>
     </>
   );
 };

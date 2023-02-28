@@ -12,8 +12,8 @@ html {
 :root {
   --body-text: #323232;
   --theme-font: 'Strait', monospace;
-  /* OTHER FONT OPTION? MAYBE FOR REGULAR TEXT */
-  /* --body-font: 'Inter', sans-serif; */
+  --body-font: 'Inter', sans-serif;
+  /* OTHER FONT OPTION ABOVE? MAYBE FOR REGULAR TEXT */
   --content-bg-color: #fff;
 }
 

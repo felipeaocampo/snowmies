@@ -31,3 +31,9 @@
   font-size: 1.8rem;
   padding: 2px;
 }
+
+.create-acc {
+  margin-top: 8rem;
+  font-size: 1.6rem;
+  font-family: var(--body-text);
+}
