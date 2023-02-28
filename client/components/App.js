@@ -4,6 +4,7 @@ import ContentContainer from './containers/ContentContainer';
 import Login from './login/Login';
 
 import './App.css';
+import SignUp from './Signup/SignUp';
 
 const App = () => {
   const [showPic, setShowPic] = useState(true);
@@ -17,7 +18,8 @@ const App = () => {
     <div>
       <BodyContainer>
         <ContentContainer togglePic={toggleHandler}>
-          <Login showPic={showPic} />
+          {/* <Login showPic={showPic} /> */}
+          <SignUp />
         </ContentContainer>
       </BodyContainer>
     </div>

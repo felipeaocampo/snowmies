@@ -10,15 +10,51 @@ html {
 }
 
 :root {
+  /* ********** GENERAL ************** */
   --body-text: #323232;
   --theme-font: 'Strait', monospace;
   --body-font: 'Inter', sans-serif;
-  /* OTHER FONT OPTION ABOVE? MAYBE FOR REGULAR TEXT */
+
+  --input-border-color: #999;
+  --input-text-color: #3e3e3e;
+
+  /* ********** COLOR PALETTE ************** */
   --content-bg-color: #fff;
+  --dark-blue: #1a1e47ff;
+  --pink-purle: #b46881ff;
+  --dark-purple: #5a1a50ff;
+  --light-purple: #6a538cff;
+  --orange: #efa570ff;
+  --light-orange: #d48c7fff;
+  --dark-green: #11425fff;
+  --light-green: #aef1e5ff;
+  --btn-fade-color: #d9d0d896;
 }
 
 body {
   font-family: var(--theme-font);
   font-size: 1.6rem;
   color: var(--body-text);
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: var(--light-purple);
+  transition: all 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+a:hover,
+a:active {
+  background-color: var(--btn-fade-color);
+  color: var(--dark-purple);
+}
+
+input {
+  color: var(--input-text-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+  font-family: sans-serif;
 }

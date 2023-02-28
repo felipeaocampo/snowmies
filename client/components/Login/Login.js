@@ -8,8 +8,8 @@ import './Login.css';
 const Login = ({ showPic }) => {
   return (
     <section className="login">
-      {showPic ? <Logo styles={`logo logo-login`} /> : <SignInForm />}
-      {/* <SignInForm /> */}
+      {/* {showPic ? <Logo styles={`logo logo-login`} /> : <SignInForm />} */}
+      <SignInForm />
     </section>
   );
 };

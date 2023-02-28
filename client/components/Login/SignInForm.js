@@ -12,13 +12,13 @@ const SignInForm = () => {
           <label htmlFor="username" className="username-label">
             Username:
           </label>
-          <input type="text" className="username-input" />
+          <input type="text" className="username-input" name="username" />
         </div>
         <div className="form-item-container">
           <label htmlFor="password" className="password-label">
             Password:
           </label>
-          <input type="password" className="password-input" />
+          <input type="password" className="password-input" name="password" />
         </div>
       </form>
       <div className="create-acc">

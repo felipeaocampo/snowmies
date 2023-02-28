@@ -9,6 +9,11 @@
   justify-content: center;
 }
 
+.logged-in {
+  width: 90%;
+  height: 90%;
+}
+
 .logo {
   width: 30rem;
 }

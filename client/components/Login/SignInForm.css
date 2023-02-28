@@ -1,11 +1,12 @@
 .sign-in-form__header1 {
   font-size: 4.8rem;
+  margin-top: 6rem;
   margin-bottom: 1rem;
 }
 
 .sign-in-form__header2 {
   font-size: 2.4rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .sign-in-form {
@@ -29,11 +30,11 @@
 .username-input,
 .password-input {
   font-size: 1.8rem;
-  padding: 2px;
+  padding: 5px;
 }
 
 .create-acc {
-  margin-top: 8rem;
+  margin-top: 6.5rem;
   font-size: 1.6rem;
   font-family: var(--body-text);
 }
