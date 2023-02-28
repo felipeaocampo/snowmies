@@ -1,0 +1,14 @@
+.content-container {
+  background-color: var(--content-bg-color);
+  width: 50%;
+  height: 50%;
+  transform: translateY(-3rem);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 30rem;
+}

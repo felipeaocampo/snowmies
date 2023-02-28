@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './BodyContainer.css';
-import snowmiesBg from '../assets/imgs/snowmies-bg.jpg';
+import snowmiesBg from '../../assets/imgs/snowmies-bg.jpg';
 
-const BodyContainer = () => {
+const BodyContainer = ({ children }) => {
   return (
     <div
       className="body-container"
@@ -12,7 +12,9 @@ const BodyContainer = () => {
         backgroundSize: `cover`,
         backgroundPosition: `center`,
       }}
-    />
+    >
+      {children}
+    </div>
   );
 };
 

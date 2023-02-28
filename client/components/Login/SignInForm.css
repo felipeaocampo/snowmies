@@ -1,0 +1,33 @@
+.sign-in-form__header1 {
+  font-size: 4.8rem;
+  margin-bottom: 1rem;
+}
+
+.sign-in-form__header2 {
+  font-size: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+.sign-in-form {
+  font-size: 1.8rem;
+}
+
+.form-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.username-label,
+.password-label {
+  display: inline-block;
+  width: max-content;
+}
+
+.username-input,
+.password-input {
+  font-size: 1.8rem;
+  padding: 2px;
+}
