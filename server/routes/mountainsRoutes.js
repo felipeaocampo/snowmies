@@ -4,7 +4,13 @@ const mountainsController = require(`../controllers/mountainsController`);
 
 const router = express.Router();
 
-router.get(`/:name`, mountainsController.getMountainByName, (req, res) => {
+//FIND ALL COMMENTS IN COMMENTS PROPERTY
+router.get(`/name/:name`, mountainsController.getMountainByName, (req, res) => {
+  res.status(200).json({ status: `success`, data: res.locals.mountain });
+});
+
+//FIND ALL COMMENTS IN COMMENTS PROPERTY
+router.get(`/id/:id`, mountainsController.getMountainById, (req, res) => {
   res.status(200).json({ status: `success`, data: res.locals.mountain });
 });
 
@@ -21,7 +27,7 @@ router.patch(
 );
 
 router.patch(
-  `/deletecomment`,
+  `/:id/deletecomment`,
   mountainsController.updateMountainCommentsDelete,
   (req, res) => {
     res
@@ -31,7 +37,7 @@ router.patch(
 );
 
 router.patch(
-  `/liked`,
+  `/:id/liked`,
   mountainsController.updateMountainCommentsLiked,
   (req, res) => {
     res
