@@ -13,7 +13,7 @@ const mountainSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  mountainComments: [Object],
+  comments: [Object],
 });
 
 module.exports = mongoose.model(`Mountain`, mountainSchema);
