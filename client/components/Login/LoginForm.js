@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
+import store from '../../context/store';
 
 import './LoginForm.css';
 
@@ -6,6 +7,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [logingIn, setLogingIn] = useState(false);
+  const { handleUserDataUpdate } = useContext(store);
 
   const fetchData = useCallback(async (username, password) => {
     const response = await fetch(`/api/users/login`, {
@@ -16,7 +18,9 @@ const LoginForm = () => {
       body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
-    console.log(data);
+
+    handleUserDataUpdate(data);
+
     setLogingIn(false);
   }, []);
 

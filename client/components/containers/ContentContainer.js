@@ -2,9 +2,9 @@ import React from 'react';
 
 import './ContentContainer.css';
 
-const ContentContainer = ({ children, togglePic }) => {
+const ContentContainer = ({ active, children }) => {
   return (
-    <main className="content-container logged-in" onClick={togglePic}>
+    <main className={`content-container ${active ? 'logged-in' : ''}`}>
       {children}
     </main>
   );

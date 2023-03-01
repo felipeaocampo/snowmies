@@ -7,14 +7,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.8s;
 }
 
-/* .logged-in {
+.logged-in {
   width: 60%;
   height: 80%;
   transform: translateY(0);
   display: block;
-} */
+}
 
 .logo {
   width: 30rem;
