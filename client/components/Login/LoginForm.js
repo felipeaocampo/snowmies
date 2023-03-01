@@ -7,16 +7,18 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [logingIn, setLogingIn] = useState(false);
 
-  const fetchData = useCallback(async (path) => {
-    const response = await fetch(`/api/users/maxmiller`);
+  const fetchData = useCallback(async (username, password) => {
+    const response = await fetch(`/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
     const data = await response.json();
     console.log(data);
     setLogingIn(false);
   }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [logingIn]);
 
   const usernameChangeHandler = (e) => {
     setUsername(e.target.value);
@@ -28,7 +30,10 @@ const LoginForm = () => {
   const submitLoginFormHandler = (e) => {
     e.preventDefault();
 
-    fetchData(`/api/users/maxmiller`);
+    const trimmedUsername = username.trim();
+    if (trimmedUsername === ``) return;
+
+    fetchData(trimmedUsername, password);
 
     setLogingIn(true);
   };

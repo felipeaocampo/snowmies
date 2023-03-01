@@ -4,9 +4,14 @@ const usersController = require(`../controllers/usersController`);
 
 const router = express.Router();
 
-router.get(`/:username`, usersController.getUserByUsername, (req, res) => {
-  res.status(200).json({ status: 'success', data: res.locals.user });
-});
+router.post(
+  `/login`,
+  usersController.getUserByUsername,
+  usersController.checkCredentials,
+  (req, res) => {
+    res.status(200).json({ status: 'success', data: res.locals.user });
+  }
+);
 
 router.post(`/`, usersController.createUser, (req, res) => {
   res.status(200).json({ status: 'success', data: res.locals.newUser });

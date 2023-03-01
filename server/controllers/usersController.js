@@ -24,11 +24,13 @@ exports.createUser = async (req, res, next) => {
 
 exports.getUserByUsername = async (req, res, next) => {
   try {
-    const user = await User.findOne(req.params);
+    const { username } = req.body;
+    const user = await User.findOne({ username });
 
     if (!user || user.length === 0) {
       return next({
         log: 'Error in usersController.js getUserByUsername middleware',
+        status: 400,
         message: 'No user for this username in DB',
       });
     }
@@ -42,6 +44,15 @@ exports.getUserByUsername = async (req, res, next) => {
       message: error.message,
     });
   }
+};
+
+exports.checkCredentials = (req, res, next) => {
+  console.log(req.body);
+  console.log(
+    `NEED TO CHECK FOR CREDENTIALS HERE IN USERCONTROLLER.JS CHECKCREDENTIALS`
+  );
+
+  next();
 };
 
 exports.updateUserProfileDescription = async (req, res, next) => {
