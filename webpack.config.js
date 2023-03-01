@@ -15,12 +15,13 @@ module.exports = {
     },
     port: 8080,
     proxy: {
-      '/dist': 'http://localhost:3000/',
-      '/api': {
-        target: 'http://localhost:3000',
-        // pathRewrite: { '^/api': '' },
-        changeOrigin: true,
-      },
+      // '/dist': 'http://localhost:3000/',
+      // '/api': {
+      //   target: 'http://localhost:3000',
+      //   // pathRewrite: { '^/api': '' },
+      //   // changeOrigin: true,
+      // },
+      '/api': 'http://localhost:3000',
     },
   },
   module: {
