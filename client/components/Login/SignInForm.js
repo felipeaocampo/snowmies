@@ -6,7 +6,9 @@ const SignInForm = () => {
   return (
     <>
       <h2 className="sign-in-form__header1">Welcome to Snowmies</h2>
-      <h3 className="sign-in-form__header2">sign in below...</h3>
+      <h3 className="sign-in-form__header2">
+        ...connect with your home mtn homies...
+      </h3>
       <form className="sign-in-form" action="/users" method="POST">
         <div className="form-item-container">
           <label htmlFor="username" className="username-label">
@@ -23,10 +25,11 @@ const SignInForm = () => {
       </form>
       <div className="create-acc">
         <p className="create-acc__text">
-          not registered? &rarr;{' '}
-          <a href="#" className="create-acc-link">
-            Create an account
-          </a>
+          not registered? &rarr; Click
+          <a href="/signup" className="create-acc-link">
+            HERE
+          </a>{' '}
+          to create an account and learn more about Snowmies
         </p>
       </div>
     </>

@@ -28,7 +28,11 @@ html {
   --light-orange: #d48c7fff;
   --dark-green: #11425fff;
   --light-green: #aef1e5ff;
+  --light-gray: #ccccca;
+
+  /* UTILITY COLORS */
   --btn-fade-color: #d9d0d896;
+  --border-gray: #a5a5a5;
 }
 
 body {

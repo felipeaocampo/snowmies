@@ -1,0 +1,32 @@
+.comment {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.comment__like-icon--container,
+.comment__delete-icon--container {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.comment__main-info--container {
+  padding-left: 0.2rem;
+}
+
+.comment__pic-n-username--container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comment__username-pic {
+  width: 2.4rem;
+  border-radius: 50%;
+}
+
+.comment__comment {
+  font-family: 'Inter';
+  font-size: 1.4rem;
+}

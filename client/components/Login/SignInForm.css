@@ -37,4 +37,10 @@
   margin-top: 6.5rem;
   font-size: 1.6rem;
   font-family: var(--body-text);
+  transform: translateY(-1rem);
+}
+
+.create-acc-link {
+  display: inline-block;
+  margin: 0 0.5rem;
 }

@@ -36,6 +36,16 @@ const SignUp = () => {
                 name="confirm-password"
               />
             </div>
+            <div className="form-item-container sign-up__form-item select-input">
+              <label for="pet-select">Home mountain:</label>
+              <select name="home-mtn" id="sign-up">
+                <option value="">Select one</option>
+                <option value="stevens">Stevens Pass - WA</option>
+                <option value="crystal">Crystal - WA</option>
+                <option value="whistler">Whistler - CA</option>
+                <option value="baker">Mt. Baker - WA</option>
+              </select>
+            </div>
           </form>
         </div>
         <div className="sign-up__img-container">

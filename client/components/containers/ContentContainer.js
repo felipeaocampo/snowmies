@@ -4,7 +4,7 @@ import './ContentContainer.css';
 
 const ContentContainer = ({ children, togglePic }) => {
   return (
-    <main className="content-container" onClick={togglePic}>
+    <main className="content-container logged-in" onClick={togglePic}>
       {children}
     </main>
   );
