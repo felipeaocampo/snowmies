@@ -19,7 +19,7 @@ router.post(`/`, mountainsController.createNewMountain, (req, res) => {
 });
 
 router.patch(
-  `/addcomment`,
+  `/:id/addcomment`,
   mountainsController.updateMountainCommentsAdd,
   (req, res) => {
     res.status(200).json({ status: `success`, data: res.locals.comments });
@@ -27,8 +27,8 @@ router.patch(
 );
 
 router.patch(
-  `/:id/deletecomment`,
-  mountainsController.updateMountainCommentsDelete,
+  `/:id/liked`,
+  mountainsController.updateMountainCommentsLiked,
   (req, res) => {
     res
       .status(200)
@@ -37,8 +37,8 @@ router.patch(
 );
 
 router.patch(
-  `/:id/liked`,
-  mountainsController.updateMountainCommentsLiked,
+  `/:id/deletecomment`,
+  mountainsController.updateMountainCommentsDelete,
   (req, res) => {
     res
       .status(200)

@@ -1,15 +1,15 @@
-.sign-in-form__header1 {
+.login-form__header1 {
   font-size: 4.8rem;
   margin-top: 6rem;
   margin-bottom: 1rem;
 }
 
-.sign-in-form__header2 {
+.login-form__header2 {
   font-size: 2.4rem;
   margin-bottom: 5rem;
 }
 
-.sign-in-form {
+.login-form {
   font-size: 1.8rem;
 }
 
@@ -31,6 +31,10 @@
 .password-input {
   font-size: 1.8rem;
   padding: 5px;
+}
+
+.login-form__submit-btn {
+  display: none;
 }
 
 .create-acc {

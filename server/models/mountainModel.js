@@ -4,6 +4,7 @@ const mountainSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: [true, 'Entry for this mountain name already exists'],
   },
   state: {
     type: String,

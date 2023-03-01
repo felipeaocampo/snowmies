@@ -4,98 +4,209 @@ const Mountain = require(`../models/mountainModel`);
 const Comment = require(`../models/commentModel`);
 
 exports.createNewMountain = async (req, res, next) => {
-  const mountain = await Mountain.create(req.body);
+  try {
+    const mountain = await Mountain.create(req.body);
 
-  res.locals.newMountain = mountain;
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js createNewMountain middleware',
+        message: 'Error in DB creating this mountain',
+      });
+    }
 
-  next();
+    res.locals.newMountain = mountain;
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in mountainsController.js createNewMountain middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.getMountainById = async (req, res, next) => {
-  const mountain = await Mountain.findById({ _id: req.params.id });
+  try {
+    const mountain = await Mountain.findById({ _id: req.params.id });
 
-  res.locals.mountain = mountain;
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js getMountainById middleware',
+        message: 'No mountain for this id in DB',
+      });
+    }
 
-  next();
+    res.locals.mountain = mountain;
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js getMountainById middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.getMountainByName = async (req, res, next) => {
-  const mountain = await Mountain.find({ name: req.params.name });
+  try {
+    const mountain = await Mountain.find({ name: req.params.name });
 
-  res.locals.mountain = mountain;
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js getMountainByName middleware',
+        message: 'No mountain for this name in DB',
+      });
+    }
 
-  next();
+    res.locals.mountain = mountain;
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js getMountainByName middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.updateMountainCommentsAdd = async (req, res, next) => {
-  const { id, comment } = req.body;
+  try {
+    //PARAMS.ID IS THE MOUNTAIN ID, NOT COMMENT ID
+    const { id } = req.params;
+    const { comment } = req.body;
 
-  const newComment = await Comment.create(comment);
+    const newComment = await Comment.create(comment);
 
-  const moutain = await Mountain.findByIdAndUpdate(
-    { _id: id },
-    { $push: { comments: newComment } },
-    { new: true }
-  );
+    const mountain = await Mountain.findByIdAndUpdate(
+      { _id: id },
+      { $push: { comments: newComment } },
+      { new: true }
+    );
 
-  res.locals.comments = moutain.comments;
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js updateMountainCommentsAdd middleware',
+        message: 'No mountain for this id in DB',
+      });
+    }
 
-  next();
-};
+    res.locals.comments = mountain.comments;
 
-exports.updateMountainCommentsDelete = async (req, res, next) => {
-  const { id } = req.params;
-  const { commentId } = req.body;
-
-  const mountain = await Mountain.findById(id);
-
-  const commentIndex = mountain.comments.findIndex((comment) => {
-    return comment._id.toString() === commentId;
-  });
-
-  mountain.comments.splice(commentIndex, 1);
-
-  const updatedMountain = await mountain.save();
-  // console.log(updatedMountain);
-
-  res.locals.updatedMountain = updatedMountain;
-
-  next();
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js updateMountainCommentsAdd middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.updateMountainCommentsLiked = async (req, res, next) => {
-  const { id } = req.params;
-  const { commentId } = req.body;
+  try {
+    //PARAMS.ID IS THE MOUNTAIN ID, NOT COMMENT ID
+    const { id } = req.params;
+    const { commentId } = req.body;
 
-  const mountain = await Mountain.findById(id);
+    const mountain = await Mountain.findById(id);
 
-  const commentIndex = mountain.comments.findIndex((comment) => {
-    return comment._id.toString() === commentId;
-  });
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js updateMountainCommentsLiked middleware',
+        message: 'No mountain for this id in DB',
+      });
+    }
 
-  //STEP2
-  const comment = await Comment.findById({ _id: commentId });
-  const currentLikedVal = comment.liked;
+    const commentIndex = mountain.comments.findIndex((comment) => {
+      return comment._id.toString() === commentId;
+    });
 
-  const updatedComment = await Comment.findByIdAndUpdate(
-    { _id: commentId },
-    { liked: !currentLikedVal },
-    { new: true }
-  );
+    //STEP2
+    const comment = await Comment.findById({ _id: commentId });
+    const currentLikedVal = comment.liked;
 
-  //STEP 3... the moutain.comments[commentIndex].liked to be reassigned directly and then saved (even tho it was logging correctly just not updating on DB, WEIRD.. so I'm just replacing the whole object w/ updated copy in comments collection)
-  mountain.comments[commentIndex] = comment;
+    const updatedComment = await Comment.findByIdAndUpdate(
+      { _id: commentId },
+      { liked: !currentLikedVal },
+      { new: true }
+    );
 
-  const updatedMountain = await mountain.save();
+    if (!updatedComment || updatedComment.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js updateMountainCommentsLiked middleware',
+        message: 'No comment for this id in DB',
+      });
+    }
 
-  res.locals.updatedMountain = updatedMountain;
+    //STEP 3... the mountain.comments[commentIndex].liked to be reassigned directly and then saved (even tho it was logging correctly just not updating on DB, WEIRD.. so I'm just replacing the whole object w/ updated copy in comments collection)
+    mountain.comments[commentIndex] = comment;
 
-  next();
+    const updatedMountain = await mountain.save();
+
+    res.locals.updatedMountain = updatedMountain;
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js updateMountainCommentsLiked middleware',
+      message: error.message,
+    });
+  }
+};
+
+exports.updateMountainCommentsDelete = async (req, res, next) => {
+  try {
+    //PARAMS.ID IS THE MOUNTAIN ID, NOT COMMENT ID
+    const { id } = req.params;
+    const { commentId } = req.body;
+
+    const mountain = await Mountain.findById(id);
+
+    if (!mountain || mountain.length === 0) {
+      return next({
+        log: 'Error in mountainsController.js updateMountainCommentsDelete middleware',
+        message: 'No mountain for this id in DB',
+      });
+    }
+
+    const commentIndex = mountain.comments.findIndex((comment) => {
+      return comment._id.toString() === commentId;
+    });
+
+    if (commentIndex === -1) {
+      return next({
+        log: 'Error in mountainsController.js updateMountainCommentsDelete middleware',
+        message: 'No comment for this id in mountains collection',
+      });
+    }
+
+    mountain.comments.splice(commentIndex, 1);
+
+    const updatedMountain = await mountain.save();
+
+    res.locals.updatedMountain = updatedMountain;
+
+    await Comment.findByIdAndDelete({ _id: commentId });
+    console.log(`PASSED SECOND DELETE`);
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js updateMountainCommentsDelete middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.deleteMountain = async (req, res, next) => {
-  await Mountain.findByIdAndDelete(req.params.id);
-  // console.log(`INSIDE DELETE`);
+  try {
+    await Mountain.findByIdAndDelete(req.params.id);
+    console.log(`INSIDE DELETE`);
 
-  next();
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js updateMountainCommentsDelete middleware',
+      message: error.message,
+    });
+  }
 };

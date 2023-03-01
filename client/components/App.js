@@ -20,9 +20,9 @@ const App = () => {
     <div>
       <BodyContainer>
         <ContentContainer togglePic={toggleHandler}>
-          {/* <Login showPic={showPic} /> */}
+          <Login showPic={showPic} />
           {/* <SignUp /> */}
-          <HomePage />
+          {/* <HomePage /> */}
         </ContentContainer>
       </BodyContainer>
     </div>
