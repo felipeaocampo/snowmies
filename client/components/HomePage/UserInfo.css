@@ -43,6 +43,7 @@
 .user-info__profile-pic {
   width: 40%;
   border-radius: 50%;
+  transform: translateY(3rem);
   display: block;
   margin: 0 auto;
 }

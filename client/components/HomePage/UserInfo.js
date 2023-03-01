@@ -27,7 +27,7 @@ const UserInfo = () => {
             </div>
           </div>
           <p className="user-info__description--content">
-            Click edit icon to update profile description...
+            Click the edit icon to update your profile description...
           </p>
         </div>
       </div>
