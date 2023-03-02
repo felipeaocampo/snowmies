@@ -53,6 +53,10 @@
   margin-bottom: 2rem;
 }
 
+.user-info__heading--special {
+  color: var(--dark-green);
+}
+
 .user-info__heading-n-icon--container {
   display: flex;
   align-items: center;

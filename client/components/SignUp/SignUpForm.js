@@ -21,7 +21,7 @@ const SignUpForm = () => {
     });
     const data = await response.json();
 
-    console.log(data);
+    // console.log(data);
 
     handleUserDataUpdate(data);
     setTimeout(() => {
@@ -33,7 +33,7 @@ const SignUpForm = () => {
   useEffect(() => {
     return () => {
       clearTimeout(timeoutId);
-      console.log(`cleared timeout`);
+      // console.log(`cleared timeout`);
     };
   }, []);
 
@@ -131,7 +131,7 @@ const SignUpForm = () => {
           <option value="stevens-pass">Stevens Pass - WA</option>
           <option value="crystal">Crystal - WA</option>
           <option value="whistler">Whistler - CA</option>
-          <option value="baker">Mt. Baker - WA</option>
+          <option value="mt-baker">Mt. Baker - WA</option>
         </select>
       </div>
     </form>

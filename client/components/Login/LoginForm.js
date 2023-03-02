@@ -6,20 +6,32 @@ import './LoginForm.css';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [logingIn, setLogingIn] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const { handleUserDataUpdate } = useContext(store);
 
-  const fetchData = useCallback(async (username, password) => {
-    const response = await fetch(`/api/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await response.json();
+  console.log(isError);
 
-    handleUserDataUpdate(data);
+  const fetchData = useCallback(async (username, password) => {
+    try {
+      const response = await fetch(`/api/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await response.json();
+
+      // console.log(data);
+      if (data.status === 400) {
+        throw new Error();
+      }
+
+      handleUserDataUpdate(data);
+    } catch (error) {
+      setIsError(true);
+    }
   }, []);
 
   const usernameChangeHandler = (e) => {
@@ -33,7 +45,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     const trimmedUsername = username.trim();
-    if (trimmedUsername === ``) return;
+    if (trimmedUsername === `` || password === ``) return;
 
     fetchData(trimmedUsername, password);
   };
@@ -51,7 +63,7 @@ const LoginForm = () => {
         </label>
         <input
           type="text"
-          className="username-input"
+          className={`username-input ${isError ? `error` : ``}`}
           name="username"
           onChange={usernameChangeHandler}
         />
@@ -62,7 +74,7 @@ const LoginForm = () => {
         </label>
         <input
           type="password"
-          className="password-input"
+          className={`password-input ${isError ? `error` : ``}`}
           name="password"
           onChange={passwordChangeHandler}
         />

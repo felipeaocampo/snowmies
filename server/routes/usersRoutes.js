@@ -7,7 +7,7 @@ const router = express.Router();
 router.post(
   `/login`,
   usersController.getUserByUsername,
-  usersController.checkCredentials,
+  usersController.checkUserPassword,
   (req, res) => {
     res.status(200).json({ status: 'success', data: res.locals.user });
   }

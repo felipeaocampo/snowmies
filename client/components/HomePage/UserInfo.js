@@ -91,7 +91,10 @@ const UserInfo = () => {
           />
         </div>
         <div className="user-info__info-container">
-          <h2 className="user-info__heading">Logged in as: {username}</h2>
+          <h2 className="user-info__heading">
+            Logged in as:{' '}
+            <span className="user-info__heading--special">{username}</span>
+          </h2>
           <div className="user-info__description--container">
             <div className="user-info__heading-n-icon--container">
               <h3 className="user-info__description--heading">

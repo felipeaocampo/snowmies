@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcryptjs');
 
 exports.createUser = async (req, res, next) => {
   try {
@@ -11,7 +12,9 @@ exports.createUser = async (req, res, next) => {
       });
     }
 
-    res.locals.newUser = user;
+    const foundUser = await User.findById(user._id);
+
+    res.locals.newUser = foundUser;
 
     next();
   } catch (error) {
@@ -25,7 +28,8 @@ exports.createUser = async (req, res, next) => {
 exports.getUserByUsername = async (req, res, next) => {
   try {
     const { username } = req.body;
-    const user = await User.findOne({ username });
+    //THE SELECT METHOD HELPS US SPECIFICALLY GET THE PROPERTY THAT WAS SELECTED FALSE, MEANING IT WONT SHOW UP ON NORMAL LOOKUPS
+    const user = await User.findOne({ username }).select('+password');
 
     if (!user || user.length === 0) {
       return next({
@@ -46,13 +50,31 @@ exports.getUserByUsername = async (req, res, next) => {
   }
 };
 
-exports.checkCredentials = (req, res, next) => {
-  console.log(req.body);
-  console.log(
-    `NEED TO CHECK FOR CREDENTIALS HERE IN USERCONTROLLER.JS CHECKCREDENTIALS`
-  );
+exports.checkUserPassword = async (req, res, next) => {
+  try {
+    const passwordMatch = await bcrypt.compare(
+      req.body.password,
+      res.locals.user.password
+    );
+    // console.log(passwordMatch);
 
-  next();
+    if (!passwordMatch) {
+      return next({
+        log: 'Error in usersController.js checkUserPassword middleware',
+        status: 400,
+        message: 'Password does not match',
+      });
+    }
+
+    res.locals.user = await User.findOne({ username: req.body.username });
+
+    next();
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js getUserByUsername middleware',
+      message: error.message,
+    });
+  }
 };
 
 exports.updateUserProfileDescription = async (req, res, next) => {

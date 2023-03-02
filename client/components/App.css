@@ -34,6 +34,7 @@ html {
   /* UTILITY COLORS */
   --btn-fade-color: #d9d0d896;
   --border-gray: #a5a5a5;
+  --error-red: #f30505;
 }
 
 body {

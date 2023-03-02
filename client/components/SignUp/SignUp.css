@@ -1,3 +1,9 @@
+.sign-up__heading {
+  font-size: 3.2rem;
+  padding-left: 3.5rem;
+  padding-top: 1.5rem;
+}
+
 .sign-up__main-container {
   display: grid;
   align-items: center;
@@ -13,6 +19,7 @@
 .sign-up__img-container {
   grid-column: 4 / -1;
   transform: translateX(-4rem);
+  position: relative;
 }
 
 .sign-up__form-container {
@@ -54,6 +61,22 @@
   opacity: 50%;
 }
 
+.sign-up__right-text--container {
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-58%);
+  font-size: 1.8rem;
+}
+
+.sign-up__right-text--container p {
+  margin-top: 2rem;
+}
+
+.sign-up__special-text {
+  color: var(--light-orange);
+}
+
 .sign-up__btn {
   background: none;
   /* border: 1px solid var(--btn-fade-color); */
@@ -74,4 +97,25 @@
   color: var(--dark-purple);
   /* border: 1px solid transparent; */
   transform: scale(1.05);
+}
+
+.sign-up__btn--go-back {
+  background: none;
+  border: none;
+  display: block;
+  margin: 0 auto;
+  margin-top: 5px;
+  text-decoration: none;
+  color: var(--light-purple);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.sign-up__btn--go-back:hover {
+  /* background-color: var(--btn-fade-color); */
+  color: var(--orange);
+  /* transform: scale(1.05); */
 }

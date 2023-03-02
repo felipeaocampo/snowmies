@@ -48,3 +48,11 @@
   display: inline-block;
   margin: 0 0.5rem;
 }
+
+.error {
+  border-color: var(--error-red);
+}
+
+.error:focus {
+  outline: none;
+}
