@@ -57,6 +57,7 @@ exports.checkCredentials = (req, res, next) => {
 
 exports.updateUserProfileDescription = async (req, res, next) => {
   try {
+    console.log(`START OF MIDDLEWARE`);
     if (!req.body.profileDescription) {
       return next({
         log: 'Error in usersController.js getUserByUsername middleware',
@@ -79,6 +80,7 @@ exports.updateUserProfileDescription = async (req, res, next) => {
 
     res.locals.updatedUser = updatedUser;
 
+    console.log(`END OF MIDDLEWARE`);
     next();
   } catch (error) {
     return next({

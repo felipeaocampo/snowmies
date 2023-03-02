@@ -21,6 +21,7 @@ router.patch(
   `/:id/update-profile-description`,
   usersController.updateUserProfileDescription,
   (req, res) => {
+    console.log(`START OF MIDDLEWARE`);
     res.status(200).json({ status: `success`, data: res.locals.updatedUser });
   }
 );

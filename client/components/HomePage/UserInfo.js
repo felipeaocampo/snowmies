@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 
 import logo from '../../assets/imgs/snowmies-logo-compressed.png';
 import { FiEdit } from 'react-icons/fi';
@@ -8,17 +8,41 @@ import store from '../../context/store';
 
 const UserInfo = () => {
   const [editDescription, setEditDescription] = useState(false);
-  const [profileDescriptionText, setProfileDescriptionText] = useState(
-    'Click the edit icon to update your profile description...'
-  );
+  const [profileDescriptionText, setProfileDescriptionText] = useState('');
   const [username, setUsername] = useState('');
 
-  const { resetStoreData, userData } = useContext(store);
+  const { resetStoreData, userData, handleUserDataUpdate } = useContext(store);
+
+  const sendPatchDescriptionRequest = useCallback(
+    async (userId, description) => {
+      const response = await fetch(
+        `/api/users/${userId}/update-profile-description`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ profileDescription: description }),
+        }
+      );
+      const data = await response.json();
+
+      // const dataCorrectedFormat = {
+      //   status: data.status,
+      //   data: [data.data],
+      // };
+      // // console.log(`DATA AFTER PATCH `, data);
+      // // console.log(`CORRECTED `, dataCorrectedFormat);
+      // handleUserDataUpdate(dataCorrectedFormat);
+    },
+    []
+  );
 
   useEffect(() => {
     if (userData.data) {
       // console.log(userData.data);
       setUsername(userData.data.username);
+      setProfileDescriptionText(userData.data.profileDescription);
     }
   }, [userData]);
 
@@ -26,12 +50,21 @@ const UserInfo = () => {
     resetStoreData();
   };
 
-  const editDescriptionHandler = () => {
+  const toggleEditDescriptionHandler = () => {
     setEditDescription((prev) => !prev);
   };
 
   const profileDescriptionTextChangeHandler = (e) => {
     setProfileDescriptionText(e.target.value);
+  };
+
+  const submitAndToggleHandler = () => {
+    const trimmedDescription = profileDescriptionText.trim();
+
+    if (trimmedDescription !== '') {
+      sendPatchDescriptionRequest(userData.data._id, profileDescriptionText);
+    }
+    toggleEditDescriptionHandler();
   };
 
   const editDescriptionForm = (
@@ -40,6 +73,7 @@ const UserInfo = () => {
       value={profileDescriptionText}
       onChange={profileDescriptionTextChangeHandler}
       rows="4"
+      placeholder="Click the edit icon to update your profile description..."
     ></textarea>
   );
 
@@ -67,12 +101,12 @@ const UserInfo = () => {
                 {editDescription ? (
                   <FiSend
                     className="user-info__edit-icon"
-                    onClick={editDescriptionHandler}
+                    onClick={submitAndToggleHandler}
                   />
                 ) : (
                   <FiEdit
                     className="user-info__edit-icon"
-                    onClick={editDescriptionHandler}
+                    onClick={toggleEditDescriptionHandler}
                   />
                 )}
               </div>

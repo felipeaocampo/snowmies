@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
 import { BsTrash } from 'react-icons/bs';
@@ -6,16 +6,22 @@ import { BsTrash } from 'react-icons/bs';
 import './Comment.css';
 import store from '../../context/store';
 
-const Comment = ({ username, content, liked, date, commentId, mtnId }) => {
-  console.log(liked);
-  console.log(date);
-  console.log(`COMMENT ID`, commentId);
-  console.log(`MTN ID`, mtnId);
+const Comment = ({
+  username,
+  content,
+  liked,
+  date,
+  commentId,
+  mtnId,
+  hideDelete,
+}) => {
+  // console.log(date);
+  // console.log(hideDelete);
 
-  const { handleUserDataUpdate } = useContext(store);
+  const { handleMountainDataUpdate } = useContext(store);
 
-  const fetchData = useCallback(async (commentId) => {
-    const response = await fetch(`/api/mountains/${mtnId}/liked`, {
+  const sendPatchCommentRequest = useCallback(async (commentId, endpoint) => {
+    const response = await fetch(`/api/mountains/${mtnId}/${endpoint}`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
@@ -24,18 +30,40 @@ const Comment = ({ username, content, liked, date, commentId, mtnId }) => {
     });
     const data = await response.json();
 
-    handleUserDataUpdate(data);
+    const dataCorrectedFormat = {
+      status: data.status,
+      data: [data.data],
+    };
+    // console.log(`DATA AFTER LIKED `, data);
+    // console.log(`CORRECTED `, dataCorrectedFormat);
+    handleMountainDataUpdate(dataCorrectedFormat);
   }, []);
+
+  const likeClickedHandler = () => {
+    // MAKE PATCH CALL
+    sendPatchCommentRequest(commentId, `liked`);
+  };
+
+  const trashClickedHandler = () => {
+    //
+    sendPatchCommentRequest(commentId, `deletecomment`);
+  };
 
   return (
     <div className="comment">
       <div className="comment__icons--container">
         <div className="comment__like-icon--container">
-          <FcLikePlaceholder />
+          {liked ? (
+            <FcLike onClick={likeClickedHandler} />
+          ) : (
+            <FcLikePlaceholder onClick={likeClickedHandler} />
+          )}
         </div>
-        <div className="comment__delete-icon--container">
-          <BsTrash />
-        </div>
+        {hideDelete ? null : (
+          <div className="comment__delete-icon--container">
+            <BsTrash onClick={trashClickedHandler} />
+          </div>
+        )}
       </div>
       <div className="comment__main-info--container">
         <div className="comment__pic-n-username--container">

@@ -90,7 +90,7 @@ exports.updateMountainCommentsAdd = async (req, res, next) => {
       });
     }
 
-    res.locals.comments = mountain.comments;
+    res.locals.comments = mountain;
 
     next();
   } catch (error) {

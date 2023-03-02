@@ -12,9 +12,16 @@ export const Provider = ({ children }) => {
     setUserData(data);
   }, []);
 
+  const handleMountainDataUpdate = useCallback((data) => {
+    // console.log(`SECOND MTN DATA`, data);
+    setMountainData(data);
+  }, []);
+
   const fetchMountainData = useCallback(async (homeMountain) => {
     const response = await fetch(`/api/mountains/name/${homeMountain}`);
     const data = await response.json();
+
+    // console.log(`FIRST MTN DATA`, data);
 
     setMountainData(data);
   }, []);
@@ -37,6 +44,7 @@ export const Provider = ({ children }) => {
       value={{
         userData,
         handleUserDataUpdate,
+        handleMountainDataUpdate,
         mountainData,
         signUpClicked,
         setSignUpClicked,

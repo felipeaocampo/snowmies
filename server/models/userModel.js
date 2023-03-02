@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
   },
   profileDescription: {
     type: String,
-    default: '',
+    default: 'Click the edit icon to update your rider description...',
   },
 });
 

@@ -1,6 +1,7 @@
 .home-page {
   display: flex;
   padding: 4rem 0;
+  transform: translateY(-0.5rem);
 }
 
 .home-page__active {
