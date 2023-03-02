@@ -13,7 +13,7 @@ router.post(
   }
 );
 
-router.post(`/`, usersController.createUser, (req, res) => {
+router.post(`/signup`, usersController.createUser, (req, res) => {
   res.status(200).json({ status: 'success', data: res.locals.newUser });
 });
 

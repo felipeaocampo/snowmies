@@ -16,7 +16,6 @@ export const Provider = ({ children }) => {
     const response = await fetch(`/api/mountains/name/${homeMountain}`);
     const data = await response.json();
 
-    console.log(data);
     setMountainData(data);
   }, []);
 
@@ -27,6 +26,12 @@ export const Provider = ({ children }) => {
     // console.log(`inside useEffect but outside fetch`); RUNS ON INIT,
   }, [userData]);
 
+  const resetStoreData = useCallback(() => {
+    setUserData({});
+    setMountainData({});
+    setSignUpClicked(false);
+  }, []);
+
   return (
     <store.Provider
       value={{
@@ -35,6 +40,7 @@ export const Provider = ({ children }) => {
         mountainData,
         signUpClicked,
         setSignUpClicked,
+        resetStoreData,
       }}
     >
       {children}

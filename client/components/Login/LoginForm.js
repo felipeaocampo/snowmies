@@ -6,7 +6,7 @@ import './LoginForm.css';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [logingIn, setLogingIn] = useState(false);
+  // const [logingIn, setLogingIn] = useState(false);
   const { handleUserDataUpdate } = useContext(store);
 
   const fetchData = useCallback(async (username, password) => {
@@ -20,8 +20,6 @@ const LoginForm = () => {
     const data = await response.json();
 
     handleUserDataUpdate(data);
-
-    setLogingIn(false);
   }, []);
 
   const usernameChangeHandler = (e) => {
@@ -38,8 +36,6 @@ const LoginForm = () => {
     if (trimmedUsername === ``) return;
 
     fetchData(trimmedUsername, password);
-
-    setLogingIn(true);
   };
 
   return (
