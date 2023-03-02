@@ -1,5 +1,33 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const multer = require(`multer`);
+
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'server/public');
+  },
+  filename: (req, file, cb) => {
+    // const fixedName = req.body.name.replaceAll(` `, ``).toLowerCase();
+    const ext = file.mimetype.split(`/`)[1].replace(`e`, ``);
+    cb(null, `user-${req.params.id}-${Date.now()}.${ext}`);
+  },
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new Error('Not an image! Please upload only images'), false);
+  }
+};
+
+// const upload = multer({ dest: 'server/assets/imgs/users' });
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadUserPhoto = upload.single(`photo`);
 
 exports.createUser = async (req, res, next) => {
   try {
@@ -110,4 +138,31 @@ exports.updateUserProfileDescription = async (req, res, next) => {
       message: error.message,
     });
   }
+};
+
+exports.updateDBWithPhotoPath = async (req, res, next) => {
+  try {
+    //PATH SHOULE EXISTS IN
+    console.log(`IN UPDATE TO DB `, req.file.filename);
+    const { id } = req.params;
+
+    // FIND USER IN DB AND UPDATE profilePhoto entry
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        profilePhoto: req.file.filename,
+      },
+      { new: true }
+    );
+
+    //RETURN UPDATED USERDATA TO CLIENT
+    res.locals.updatedUser = updatedUser;
+  } catch (error) {
+    return next({
+      log: 'Error in usersController.js updateDBWithPhotoPath middleware',
+      message: error.message,
+    });
+  }
+
+  next();
 };

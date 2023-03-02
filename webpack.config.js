@@ -21,11 +21,15 @@ module.exports = {
       //   // pathRewrite: { '^/api': '' },
       //   // changeOrigin: true,
       // },
-      '/api': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
     },
   },
   module: {
     rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: 'asset',
+      },
       {
         test: /\.jsx?/,
         exclude: /node_modules/,
@@ -39,15 +43,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|jpg)$/,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: 3 * 1024,
-          },
-        },
       },
     ],
   },

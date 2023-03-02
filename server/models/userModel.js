@@ -35,6 +35,10 @@ const userSchema = mongoose.Schema({
     type: String,
     default: 'Click the edit icon to update your rider description...',
   },
+  profilePhoto: {
+    type: String,
+    default: 'user-default-1677787458411.jpg',
+  },
 });
 
 userSchema.pre('save', async function (next) {

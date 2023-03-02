@@ -18,7 +18,13 @@ mongoose
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log(`ORIGINAL URL `, req.originalUrl);
+  console.log(`PATH `, req.path);
+  next();
+});
 // GENERAL MIDDLEWARES
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,6 +36,11 @@ app.get(`/`, (req, res) => {
 //ROUTES
 app.use(`/api/mountains`, mountainsRouter);
 app.use(`/api/users`, usersRouter);
+
+app.use(`/api`, (req, res) => {
+  res.send(`GENERIC RECEIVER`);
+  // path.resolve(__dirname, 'public', 'user-default-1677789708088.jpg');
+});
 
 // GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {

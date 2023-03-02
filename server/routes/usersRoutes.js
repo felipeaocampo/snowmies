@@ -1,7 +1,9 @@
 const express = require(`express`);
+const multer = require(`multer`);
 
 const usersController = require(`../controllers/usersController`);
 
+const upload = multer({ dest: 'server/public' });
 const router = express.Router();
 
 router.post(
@@ -25,5 +27,24 @@ router.patch(
     res.status(200).json({ status: `success`, data: res.locals.updatedUser });
   }
 );
+
+router.patch(
+  `/:id/update-photo`,
+  usersController.uploadUserPhoto,
+  usersController.updateDBWithPhotoPath,
+  (req, res) => {
+    console.log(`FILE `, req.file);
+
+    res.status(200).json({ status: `success`, data: res.locals.updatedUser });
+  }
+);
+
+//FIRST WAY OF USING MULTER.. UPLOADS FILE BUT IN A HUGE BINARY KINDA WAY
+// router.patch(`/update-photo`, upload.single('photo'), (req, res) => {
+//   console.log(`BODY `, req.body);
+//   console.log(`FILE `, req.file);
+
+//   res.send(`TESTING TESTING`);
+// });
 
 module.exports = router;

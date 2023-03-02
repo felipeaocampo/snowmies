@@ -12,6 +12,7 @@ const UserInfo = () => {
   const [username, setUsername] = useState('');
 
   const { resetStoreData, userData, handleUserDataUpdate } = useContext(store);
+  console.log(userData);
 
   const sendPatchDescriptionRequest = useCallback(
     async (userId, description) => {
@@ -86,7 +87,8 @@ const UserInfo = () => {
         <div className="user-info__profile-pic--container">
           <img
             className="user-info__profile-pic"
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            // src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            src={`${userData.data.profilePhoto}`}
             alt="User profile pic"
           />
         </div>
