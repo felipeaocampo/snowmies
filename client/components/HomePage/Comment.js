@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
 import { BsTrash } from 'react-icons/bs';
 
 import './Comment.css';
+import store from '../../context/store';
 
-const Comment = () => {
-  //
+const Comment = ({ username, content, liked, date, commentId, mtnId }) => {
+  console.log(liked);
+  console.log(date);
+  console.log(`COMMENT ID`, commentId);
+  console.log(`MTN ID`, mtnId);
+
+  const { handleUserDataUpdate } = useContext(store);
+
+  const fetchData = useCallback(async (commentId) => {
+    const response = await fetch(`/api/mountains/${mtnId}/liked`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ commentId }),
+    });
+    const data = await response.json();
+
+    handleUserDataUpdate(data);
+  }, []);
+
   return (
     <div className="comment">
-      <div className="comment__like-icon--container">
-        <FcLikePlaceholder />
+      <div className="comment__icons--container">
+        <div className="comment__like-icon--container">
+          <FcLikePlaceholder />
+        </div>
+        <div className="comment__delete-icon--container">
+          <BsTrash />
+        </div>
       </div>
       <div className="comment__main-info--container">
         <div className="comment__pic-n-username--container">
@@ -19,17 +44,9 @@ const Comment = () => {
             alt=""
             className="comment__username-pic"
           />
-          <p className="comment__username">username</p>
+          <p className="comment__username">{username}</p>
         </div>
-        <p className="comment__comment">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, minima
-          quasi molestiae vitae obcaecati perspiciatis distinctio esse tenetur
-          animi numquam voluptate laboriosam non assumenda quas ea similique
-          consectetur facilis repudiandae!
-        </p>
-      </div>
-      <div className="comment__delete-icon--container">
-        <BsTrash />
+        <p className="comment__comment">{content}</p>
       </div>
     </div>
   );

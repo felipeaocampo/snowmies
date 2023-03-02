@@ -1,14 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import logo from '../../assets/imgs/snowmies-logo-compressed.png';
 import { FiEdit } from 'react-icons/fi';
+import { FiSend } from 'react-icons/fi';
 import './UserInfo.css';
 import store from '../../context/store';
 
 const UserInfo = () => {
   const [editDescription, setEditDescription] = useState(false);
+  const [profileDescriptionText, setProfileDescriptionText] = useState(
+    'Click the edit icon to update your profile description...'
+  );
+  const [username, setUsername] = useState('');
 
-  const { resetStoreData } = useContext(store);
+  const { resetStoreData, userData } = useContext(store);
+
+  useEffect(() => {
+    if (userData.data) {
+      // console.log(userData.data);
+      setUsername(userData.data.username);
+    }
+  }, [userData]);
 
   const logoutHandler = () => {
     resetStoreData();
@@ -18,39 +30,62 @@ const UserInfo = () => {
     setEditDescription((prev) => !prev);
   };
 
+  const profileDescriptionTextChangeHandler = (e) => {
+    setProfileDescriptionText(e.target.value);
+  };
+
   const editDescriptionForm = (
-    <textarea className="user-info__edit-description-form"></textarea>
+    <textarea
+      className="user-info__edit-description-form"
+      value={profileDescriptionText}
+      onChange={profileDescriptionTextChangeHandler}
+      rows="4"
+    ></textarea>
   );
 
   return (
     <div className="user-info">
-      <button className="user-info__logout-btn" onClick={logoutHandler}>
-        Log out
-      </button>
-      <div className="user-info__profile-pic--container">
-        <img
-          className="user-info__profile-pic"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-          alt="User profile pic"
-        />
-      </div>
-      <div className="user-info__info-container">
-        <h2 className="user-info__heading">Logged in as: Username</h2>
-        <div className="user-info__description--container">
-          <div className="user-info__heading-n-icon--container">
-            <h3 className="user-info__description--heading">
-              Profile Description
-            </h3>
-            <div className="icon-container">
-              <FiEdit
-                className="user-info__edit-icon"
-                onClick={editDescriptionHandler}
-              />
+      <div className="user-info__main-content--container">
+        <button className="user-info__logout-btn" onClick={logoutHandler}>
+          Log out
+        </button>
+        <div className="user-info__profile-pic--container">
+          <img
+            className="user-info__profile-pic"
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            alt="User profile pic"
+          />
+        </div>
+        <div className="user-info__info-container">
+          <h2 className="user-info__heading">Logged in as: {username}</h2>
+          <div className="user-info__description--container">
+            <div className="user-info__heading-n-icon--container">
+              <h3 className="user-info__description--heading">
+                Rider Description
+              </h3>
+              <div className="icon-container">
+                {editDescription ? (
+                  <FiSend
+                    className="user-info__edit-icon"
+                    onClick={editDescriptionHandler}
+                  />
+                ) : (
+                  <FiEdit
+                    className="user-info__edit-icon"
+                    onClick={editDescriptionHandler}
+                  />
+                )}
+              </div>
             </div>
+            {editDescription ? (
+              editDescriptionForm
+            ) : (
+              <p className="user-info__description--content">
+                {/* Click the edit icon to update your profile description... */}
+                {profileDescriptionText}
+              </p>
+            )}
           </div>
-          <p className="user-info__description--content">
-            Click the edit icon to update your profile description...
-          </p>
         </div>
       </div>
       <div className="home-page__img--container">

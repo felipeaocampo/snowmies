@@ -1,17 +1,57 @@
 .comment {
   display: flex;
-  align-items: center;
+  align-items: start;
   margin-top: 2rem;
+  padding: 0.8rem;
+  width: 38.3rem;
+  position: relative;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(
+        to right,
+        var(--dark-green),
+        var(--pink-purle),
+        var(--light-purple),
+        var(--orange)
+      )
+      border-box;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  border-bottom-right-radius: 0;
+}
+
+.comment__icons--container {
+  margin-right: 1rem;
 }
 
 .comment__like-icon--container,
 .comment__delete-icon--container {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   cursor: pointer;
 }
 
+.comment__main-info--container::after {
+  content: '';
+  position: absolute;
+  height: 60px;
+  /* height: 58%; */
+  width: 2px;
+  background-color: var(--light-green);
+  top: 9px;
+  left: 45px;
+  border-radius: 20px;
+}
+
+.comment__like-icon--container:active {
+  transform: scale(1.3);
+}
+
+.comment__delete-icon--container:active {
+  transform: scale(1.1);
+}
+
 .comment__main-info--container {
-  padding-left: 0.2rem;
+  padding-left: 0.5rem;
+  width: 34.3rem;
 }
 
 .comment__pic-n-username--container {
@@ -29,4 +69,5 @@
 .comment__comment {
   font-family: 'Inter';
   font-size: 1.4rem;
+  width: 30.1rem;
 }
