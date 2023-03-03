@@ -21,8 +21,32 @@
   /* font-size: 2.4rem; */
   cursor: pointer;
   position: absolute;
-  top: 12px;
+  top: 22px;
   left: 35px;
+}
+
+.photo-form {
+  position: absolute;
+  bottom: 0;
+  left: -10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.photo-form input {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: none;
+}
+
+.photo-form button {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
 }
 
 .user-info__logout-btn:hover {

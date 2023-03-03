@@ -77,6 +77,10 @@ const MtnFeed = () => {
   const newCommentSubmitHandler = (e) => {
     e.preventDefault();
 
+    const trimmedEnteredComment = enteredComment.trim();
+
+    if (trimmedEnteredComment === ``) return;
+
     const newComment = {
       username: userData.data.username,
       content: enteredComment,

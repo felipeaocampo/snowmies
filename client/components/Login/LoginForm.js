@@ -10,7 +10,7 @@ const LoginForm = () => {
 
   const { handleUserDataUpdate } = useContext(store);
 
-  console.log(isError);
+  // console.log(isError);
 
   const fetchData = useCallback(async (username, password) => {
     try {

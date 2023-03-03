@@ -142,6 +142,7 @@ exports.updateUserProfileDescription = async (req, res, next) => {
 
 exports.updateDBWithPhotoPath = async (req, res, next) => {
   try {
+    console.log(`MADE MADE MADE MADE IT INTO START OF UPDATE PHOTO`);
     //PATH SHOULE EXISTS IN
     console.log(`IN UPDATE TO DB `, req.file.filename);
     const { id } = req.params;

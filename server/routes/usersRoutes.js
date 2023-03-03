@@ -30,6 +30,13 @@ router.patch(
 
 router.patch(
   `/:id/update-photo`,
+  (req, res, next) => {
+    console.log(`MADE IT TO BEGINNING OF UPDATE PHOTO`);
+    console.log(`BODY `, req.body);
+    console.log(`FILE `, req.file);
+
+    next();
+  },
   usersController.uploadUserPhoto,
   usersController.updateDBWithPhotoPath,
   (req, res) => {

@@ -39,6 +39,31 @@ const UserInfo = () => {
     []
   );
 
+  const sendPatchProfilePhotoRequest = useCallback(
+    async (userId, description) => {
+      const response = await fetch(
+        `/api/users/${userId}/update-profile-description`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ profileDescription: description }),
+        }
+      );
+      const data = await response.json();
+
+      // const dataCorrectedFormat = {
+      //   status: data.status,
+      //   data: [data.data],
+      // };
+      // // console.log(`DATA AFTER PATCH `, data);
+      // // console.log(`CORRECTED `, dataCorrectedFormat);
+      // handleUserDataUpdate(dataCorrectedFormat);
+    },
+    []
+  );
+
   useEffect(() => {
     if (userData.data) {
       // console.log(userData.data);
@@ -66,6 +91,33 @@ const UserInfo = () => {
       sendPatchDescriptionRequest(userData.data._id, profileDescriptionText);
     }
     toggleEditDescriptionHandler();
+  };
+
+  const updatedProfilePhotoHandler = (e) => {
+    e.preventDefault();
+    // console.log(`SUMITTED`);
+    // console.log(e.target.files);
+    const files = e.target.files.files;
+    const photo = new FormData();
+    photo.append('photo', files[0]);
+    // console.log(photo);
+
+    fetch(`/api/users/${userData.data._id}/update-photo`, {
+      method: 'PATCH',
+      body: photo,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === `success`) {
+          // const dataCorrectedFormat = {
+          //   status: data.status,
+          //   data: [data.data],
+          // };
+          // console.log(`DATA AFTER PATCH `, data);
+          // console.log(`CORRECTED `, dataCorrectedFormat);
+          handleUserDataUpdate(data);
+        }
+      });
   };
 
   const editDescriptionForm = (
@@ -130,6 +182,19 @@ const UserInfo = () => {
       <div className="home-page__img--container">
         <img src={logo} alt="Snowmies logo" className="home-page__img" />
       </div>
+      <form
+        action="/updatephoto"
+        className="photo-form"
+        onSubmit={updatedProfilePhotoHandler}
+      >
+        <input
+          type="file"
+          name="files"
+          id="files"
+          // onChange={updatedProfilePhotoHandler}
+        />
+        <button type="submit"></button>
+      </form>
     </div>
   );
 };
