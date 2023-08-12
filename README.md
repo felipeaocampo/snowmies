@@ -1,8 +1,8 @@
 <div align="center">
-  
-# Snowmies
 
-![snowmies-logo-readme](https://github.com/felipeaocampo/snowmies/assets/95617522/4c6d3b1a-0384-4ad4-8748-04d190dc2c2e)
+<img width="1512" alt="Screen Shot 2023-08-12 at 1 43 31 PM" src="https://github.com/felipeaocampo/snowmies/assets/95617522/b5b059a3-2023-44d3-b7fd-197085fd307d">
+<br>
+<br>
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
@@ -27,7 +27,7 @@
 
 ## What is Snowmies?
 
-Snowmies is...!
+Snowmies is a social media application for skiers and snowboarders who share the same home mountain. It allows users to log in to a Mountain Feed page, which is essentially n online community board that allows users to interact with other through comments and likes. The Moutain Feed page also allows users to update their profile description and upload a profile picture. Users also have the option of logging out or refreshing the comments to see if any new comments can be retrieved. Lastly, the app also has a dedicated sign up page for users who are using the app for the first time to provide the necessary information and most importantly choose their home mountain.
 
 ## Getting Started
 
@@ -50,16 +50,34 @@ Make sure you make your own .env file and fill it with the variables found in th
 - [MongoDB](https://www.mongodb.com/)
 - [Webpack](https://webpack.js.org/)
 
-We built this application with typesafety in mind! From the client to the database, everything is typed and we chose our tech stack to accomplish this! As devs, the experience using these tools is also amazing.  When using APIs on the frontend, IntelliSense helps us autocomplete fields for efficient workflow and type errors are quickly caught before compile time.
+This application chose React for its frontend development because the project demanded quick development and an efficient infrastructure. The modular and reusable code comprising the frontend ensures a very scaleable application. The Framer Motion library was used to add dynamic effects to the frontend and form validation was included whenever user submits any data. For state management, since the current iteration of this app is of smaller scale, instead of using Redux, React's context API was used to maintain app wide state. Of course each necessary component maintained its own state.
 
+Prioritizing development speed and app-wide cohesion, Node.js was chosen for the backend and was build upon a layer of abstraction provided by Express. The backend provides a RESTful API that also implements the MVP pattern in its infrastructure. A NoSQL (MongoDB) was chosen to store the user information needed by the frontend in order to properly display the user's Mountain Feed. Multiple collections were created for this, such as the users and comments collection. Further, another layer of abstraction was added by the inclusion of Mongoose, which was helpful to ensure security and consistency in the users data.
 
-For styling, we chose Tailwind CSS because of the fast workflow, especially when building mobile-friendly applications.  Built in screen breakpoints make it easy to define different styles for varying screen sizes.  If you value speed, consistency, and flexibility in their CSS workflow without the need to write CSS in a separate file or defining classess/IDs for the purpose of styling it's definitely worth checking out Tailwind CSS!
+The latest piece added to the backend is facilitated by <a href="https://www.npmjs.com/package/multer">Multer</a>. Multer is a Node.js package that allows for files to be stored in the backend directory, provides a url for the file, which was then passed on to the database. From there, the frontend is updated in order for the user's profile picture to accurately display.
 
 Check the links above or the <a href = "#Editorial">editorial</a> if you are interested in learning more about any of the tools we used
 
 ## Features
 
-Snowmies has the following features...
+### Login Page
+
+https://github.com/felipeaocampo/snowmies/assets/95617522/82dd49ed-d5c1-44d0-ba01-7492e8d19e88
+
+### Sign Up Page
+
+https://github.com/felipeaocampo/snowmies/assets/95617522/2032fe36-7815-4e73-a483-a5fd55ac0652
+
+
+### Mountain Feed Page
+
+#### - Upload profile pic, update profile description, and log out
+
+https://github.com/felipeaocampo/snowmies/assets/95617522/1c859bd1-a5ae-44aa-b7af-be5fa26e0c30
+
+#### - Like and unlike comments, add comment to mountain feed board, delete comments posted by same user
+
+https://github.com/felipeaocampo/snowmies/assets/95617522/a1d86023-8210-4b21-b44c-9a9d85f32b5b
 
 ## Contributing
 
